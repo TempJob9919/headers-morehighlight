@@ -9,14 +9,14 @@ import com.discord.simpleast.core.parser.Rule;
 import com.discord.utilities.textprocessing.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-public final class HeaderRule extends Rule<MessageRenderContext, HeaderNode, MessageParseState {
+public final class HeaderRule extends Rule.BlockRule<MessageRenderContext, HeaderNode<MessageRenderContext>, MessageParseState> {
     public HeaderRule() {
-        super(Pattern.compile("^\\s*(#+)[ \\t](.*) *(?=\\n|$)"));
+        super(Pattern.compile("^\\s*(#){1,3}[ \\t](.*) *(?=\\n|$)"));
     }
 
     @Override
-    public ParseSpec<MessageRenderContext, MessageParseState> parse(Matcher matcher, Parser<MessageRenderContext, ? super LinkNode<MessageRenderContext>, MessageParseState> parser, MessageParseState s) {
-        HeaderNode textNode = new HeaderNode(matcher.group(0));
-        return new ParseSpec<>(textNode, s);
+    public ParseSpec<MessageRenderContext, MessageParseState> parse(Matcher matcher, Parser<MessageRenderContext, ? super HeaderNode<MessageRenderContext>, MessageParseState> parser, MessageParseState s) {
+        HeaderNode textNode = new HeaderNode(matcher.group(1).length());
+        return new ParseSpec<>(textNode, s, matcher.start(2), matcher.end(2));
     }
 }

@@ -62,6 +62,7 @@ public class MoreHighlight extends Plugin {
   public static Pattern ISSUE_REGEX = Pattern.compile("^<([A-Za-z0-9-]{1,39})\\/([A-Za-z0-9-]{1,39})#([0-9]{1,})>");
   public static Pattern REPO_REGEX = Pattern.compile("^<gh:([A-Za-z0-9-]{1,39})/([A-Za-z0-9-]{1,39})>");
   public static Pattern ALIU_REGEX = Pattern.compile("^ac://([A-Za-z0-9$]+)");
+  public static Pattern LIST_REGEX = Pattern.compile("^(?:[\\*-]|\\d+\\.)[ \\t](.*)(?=\\n|$)");
 
   public Field rulesField;
 
@@ -81,7 +82,8 @@ public class MoreHighlight extends Plugin {
         Parser<MessageRenderContext, Node<MessageRenderContext>, MessageParseState> parser = DiscordParser.createParser$default(true, true, true, false, false, 4, null);
         String str = (String) callFrame.args[1];
         ArrayList<Rule<MessageRenderContext, ? extends Node<MessageRenderContext>,MessageParseState>> rules = (ArrayList<Rule<MessageRenderContext, ? extends Node<MessageRenderContext>,MessageParseState>>) rulesField.get(parser);
-        rules.add(0, new BulletRule());
+        rules.add(0, new HeaderRule());
+        rules.add(0, new ListBulletRule(LIST_REGEX));
         rules.add(0, new RedditRule(REDDIT_REGEX, ctx));
         rules.add(0, new IssueRule(ISSUE_REGEX, ctx));
         rules.add(0, new RepoRule(REPO_REGEX, ctx));

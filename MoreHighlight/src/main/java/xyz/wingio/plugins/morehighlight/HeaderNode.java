@@ -9,17 +9,28 @@ import android.text.SpannableStringBuilder;
 import android.text.style.*;
 
 public class HeaderNode<MessageRenderContext> extends Node<MessageRenderContext> {
-  String content;
+  int headerSize;
 
-  public HeaderNode(String content){
+  public HeaderNode(int headerSize){
     super();
-    this.content = content;
+    this.headerSize = headerSize;
   }
 
   @Override
   public void render(SpannableStringBuilder builder, MessageRenderContext renderContext) {
     int length = builder.length();
-    builder.append(content);
-    builder.setSpan(new RelativeSizeSpan(), length, builder.length(), SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
+    for (Node n:
+            getChildren()) {
+      n.render(builder, renderContext);
+    }
+    switch (headerSize) {
+      case 1:
+        builder.setSpan(new RelativeSizeSpan(1.5f), length, builder.length(), SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
+        break;
+      case 2:
+        builder.setSpan(new RelativeSizeSpan(1.25f), length, builder.length(), SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
+        break;
+    }
+    builder.setSpan(new StyleSpan(1), length, builder.length(), SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
   }
 }
