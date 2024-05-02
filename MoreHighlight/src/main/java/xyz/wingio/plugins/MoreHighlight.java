@@ -62,7 +62,7 @@ public class MoreHighlight extends Plugin {
   public static Pattern ISSUE_REGEX = Pattern.compile("^<([A-Za-z0-9-]{1,39})\\/([A-Za-z0-9-]{1,39})#([0-9]{1,})>");
   public static Pattern REPO_REGEX = Pattern.compile("^<gh:([A-Za-z0-9-]{1,39})/([A-Za-z0-9-]{1,39})>");
   public static Pattern ALIU_REGEX = Pattern.compile("^ac://([A-Za-z0-9$]+)");
-  public static Pattern LIST_REGEX = Pattern.compile("^(?:[\\*-]|\\d+\\.)[ \\t](.*)(?=\\n|$)");
+  public static Pattern LIST_REGEX = Pattern.compile("^(?:[\\*-]\\s+)(.*(?:\\n\\s+)(.*)*)(?=\\n|$)");
 
   public Field rulesField;
 

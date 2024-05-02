@@ -17,11 +17,10 @@ public class ListBulletNode<MessageRenderContext> extends Node<MessageRenderCont
   @Override
   public void render(SpannableStringBuilder builder, MessageRenderContext renderContext) {
     int startIndex = builder.length();
-    //builder.append(content);
-    for (Node n:
-         getChildren()) {
+
+    for (Node n : getChildren()) {
       n.render(builder, renderContext);
-      builder.setSpan(new BulletSpan(18, Color.parseColor("#6e7B7F"), 7), startIndex, startIndex + 1, SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
+    builder.setSpan(new BulletSpan(18, Color.parseColor("#6e7B7F"), 7), startIndex, builder.length(), SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
   }
 }

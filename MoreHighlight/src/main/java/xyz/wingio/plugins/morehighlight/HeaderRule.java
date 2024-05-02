@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public final class HeaderRule extends Rule.BlockRule<MessageRenderContext, HeaderNode<MessageRenderContext>, MessageParseState> {
     public HeaderRule() {
-        super(Pattern.compile("^\\s*(#){1,3}[ \\t](.*) *(?=\\n|$)"));
+        super(Pattern.compile("^\\s*(##?#?)\\s+(.+)(?=\\n|$)"));
     }
 
     @Override
